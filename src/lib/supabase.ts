@@ -4,6 +4,17 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
+// Create a mock channel that matches the expected interface
+const createMockChannel = () => {
+  const mockChannel = {
+    on: function(this: any, ...args: any[]) {
+      return this;
+    },
+    subscribe: () => ({ unsubscribe: () => {} })
+  };
+  return mockChannel;
+};
+
 // Create Supabase client only if URL is provided, otherwise export a dummy object for build time
 export const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseAnonKey) : {
   auth: {
@@ -25,9 +36,5 @@ export const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseAnonKey)
       eq: () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') }),
     }),
   }),
-  channel: () => ({
-    on: (event: string, filter: any, callback?: any) => ({
-      subscribe: () => ({ unsubscribe: () => {} })
-    })
-  })
-};
+  channel: createMockChannel
+} as any;
