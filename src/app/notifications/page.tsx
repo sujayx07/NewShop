@@ -23,7 +23,7 @@ export default function NotificationsPage() {
           schema: 'public',
           table: 'notifications',
           filter: `recipient_user_id=eq.${user.id}`,
-        }, (payload) => {
+        }, (payload: any) => {
           setNotifications(prev => [payload.new, ...prev]);
         })
         .subscribe();
