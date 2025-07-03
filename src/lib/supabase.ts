@@ -10,7 +10,8 @@ export const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseAnonKey)
     getSession: async () => Promise.resolve({ data: { session: null }, error: null }),
     updateUser: async () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') }),
     signOut: async () => Promise.resolve({ error: null }),
-    signUp: async () => Promise.resolve({ data: { user: null, session: null }, error: new Error('Supabase client not initialized') })
+    signUp: async () => Promise.resolve({ data: { user: null, session: null }, error: new Error('Supabase client not initialized') }),
+    signInWithPassword: async () => Promise.resolve({ data: { session: null }, error: new Error('Supabase client not initialized') })
   },
   from: () => ({
     select: () => ({
