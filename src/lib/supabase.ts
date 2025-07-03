@@ -7,27 +7,27 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 // Create Supabase client only if URL is provided, otherwise export a dummy object for build time
 export const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseAnonKey) : {
   auth: {
-    getSession: async () => ({ data: { session: null }, error: null }),
-    updateUser: async () => ({ data: null, error: new Error('Supabase client not initialized') }),
-    signOut: async () => ({ error: null }),
-    signUp: async () => ({ data: { user: null, session: null }, error: new Error('Supabase client not initialized') })
+    getSession: async () => Promise.resolve({ data: { session: null }, error: null }),
+    updateUser: async () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') }),
+    signOut: async () => Promise.resolve({ error: null }),
+    signUp: async () => Promise.resolve({ data: { user: null, session: null }, error: new Error('Supabase client not initialized') })
   },
   from: () => ({
     select: () => ({
       order: () => ({
-        then: async () => ({ data: [], error: new Error('Supabase client not initialized') })
+        then: async () => Promise.resolve({ data: [], error: new Error('Supabase client not initialized') })
       }),
       eq: () => ({
-        single: async () => ({ data: null, error: new Error('Supabase client not initialized') }),
-        then: async () => ({ data: [], error: new Error('Supabase client not initialized') })
+        single: async () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') }),
+        then: async () => Promise.resolve({ data: [], error: new Error('Supabase client not initialized') })
       }),
       update: () => ({
         eq: () => ({
-          then: async () => ({ data: null, error: new Error('Supabase client not initialized') })
+          then: async () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') })
         })
       }),
       insert: () => ({
-        then: async () => ({ data: null, error: new Error('Supabase client not initialized') })
+        then: async () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') })
       })
     })
   }),
