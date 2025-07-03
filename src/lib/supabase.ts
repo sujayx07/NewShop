@@ -26,7 +26,7 @@ export const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseAnonKey)
     }),
   }),
   channel: () => ({
-    on: () => ({
+    on: (event: string, callback: any) => ({
       subscribe: () => ({ unsubscribe: () => {} })
     })
   })
