@@ -14,22 +14,15 @@ export const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseAnonKey)
   },
   from: () => ({
     select: () => ({
-      order: () => ({
-        then: async () => Promise.resolve({ data: [], error: new Error('Supabase client not initialized') })
-      }),
+      order: () => Promise.resolve({ data: [], error: new Error('Supabase client not initialized') }),
       eq: () => ({
-        single: async () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') }),
-        then: async () => Promise.resolve({ data: [], error: new Error('Supabase client not initialized') })
+        single: () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') }),
       }),
-      update: () => ({
-        eq: () => ({
-          then: async () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') })
-        })
-      }),
-      insert: () => ({
-        then: async () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') })
-      })
-    })
+    }),
+    insert: () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') }),
+    update: () => ({
+      eq: () => Promise.resolve({ data: null, error: new Error('Supabase client not initialized') }),
+    }),
   }),
   channel: () => ({
     on: () => ({
